@@ -1,0 +1,21 @@
+.login-form {
+    width: 300px;
+    margin: 0 auto;
+}
+.login-form h1 {
+    text-align: center;
+    padding: 20px 0 20px 0;
+}
+.login-form input[type="password"],
+.login-form input[type="text"] {
+    width: 100%;
+    padding: 15px;
+    margin-bottom: 15px;
+    box-sizing:border-box;
+}
+.login-form input[type="submit"] {
+    width: 100%;
+    padding: 15px;
+    border: 0;
+    box-sizing: border-box;
+}

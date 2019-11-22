@@ -1,0 +1,16 @@
+.login-form {
+    font-family: Tahoma, Geneva, sans-serif;
+}
+.login-form h1 {
+    color: #4d4d4d;
+    font-size: 24px;
+}
+.login-form input[type="password"],
+.login-form input[type="text"] {
+    border: 1px solid #dddddd;
+}
+.login-form input[type="submit"] {
+    background-color: #535b63;
+    font-weight: bold;
+    color: #ffffff;
+}
