@@ -235,10 +235,6 @@ app.delete('/api/v0/player/remove/:playerID', function(req, res) {
 });
 
 app.get('/api/v0/player/search/:pattern', function(req, res) {
-
-});
-
-app.get('/api/v0/player/search/:pattern', function(req, res) {
 	db.all("SELECT * FROM jsf_players WHERE player_name LIKE \'\%" + req.params.pattern + "\%\';", function(err, results) {
 		console.log(results);
 		if (err) {
