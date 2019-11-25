@@ -125,15 +125,15 @@ app.get('/api/v0/fighter/show/:fighterUID', function(req, res) {
 app.post('/api/v0/fighter/add/', function(req, res) {
 	db.get("SELECT * FROM jsf_players WHERE player_name = \'" + req.body.player_name + "\';", function(err, results) {
 		console.log(results);
-        console.log(err);
+		console.log(err);
 		if (!results) {
-            console.log("No Player with that name.");
-            res.status(403).send("No Player with that name.");
+			console.log("No Player with that name.");
+			res.status(403).send("No Player with that name.");
 		} else {
 			db.run("INSERT INTO jsf_fighters (fighter_name, fighter_player_UID, stat_atk, stat_def, stat_tek, rec_wins, rec_losses) VALUES (\'" + req.body.fightername + "\', \'" + results.player_UID + "\', 5, 5, 5, 0, 0);", function(err) {
 				if (err) {
 					console.log("INSERT query: " + err);
-                    res.status(403).send("INSERT query: " + err);
+					res.status(403).send("INSERT query: " + err);
 				} else {
 					res.status(201).send("Success");
 				}
@@ -142,12 +142,19 @@ app.post('/api/v0/fighter/add/', function(req, res) {
 	});
 });
 
-app.put('/api/v0/fighter/edit/:fighterID', function(req, res) {
+app.post('/api/v0/fighter/edit/:fighterUID', function(req, res) {
 
 });
 
-app.delete('/api/v0/fighter/remove/:fighterID', function(req, res) {
-
+app.post('/api/v0/fighter/remove/:fighterUID', function(req, res) {
+	db.run("DELETE FROM jsf_fighters WHERE fighter_UID = \'" + req.params.fighterUID + "\';", function(err) {
+		if (err) {
+			console.log("DELETE query: " + err);
+			res.status(403).send("DELETE query: " + err);
+		} else {
+			res.status(201).send("Success");
+		}
+	});
 });
 
 app.get('/api/v0/fighter/search/:pattern', function(req, res) {
@@ -210,7 +217,7 @@ app.get('/api/v0/player/show/:playerUID', function(req, res) {
 });
 
 app.post('/api/v0/player/add/', function(req, res) {
-	db.get("SELECT player_name FROM jsf_players WHERE player_UID = \'" + req.body.playerID + "\';", function(err, results) {
+	db.get("SELECT player_name FROM jsf_players WHERE player_name = \'" + req.body.playername + "\';", function(err, results) {
 		console.log(results);
 		if (!results) {
 			db.run("INSERT INTO jsf_players (player_name) VALUES (\'" + req.body.playername + "\');", function(err) {
@@ -226,12 +233,28 @@ app.post('/api/v0/player/add/', function(req, res) {
 	});
 });
 
-app.put('/api/v0/player/edit/:playerID', function(req, res) {
+app.post('/api/v0/player/edit/:playerID', function(req, res) {
 
 });
 
-app.delete('/api/v0/player/remove/:playerID', function(req, res) {
-
+app.post('/api/v0/player/remove/:playerUID', function(req, res) {
+	// Delete all fighters first
+	db.run("DELETE FROM jsf_fighters WHERE fighter_player_UID = \'" + req.params.playerUID + "\';", function(err) {
+		if (err) {
+			console.log("DELETE query: " + err);
+			res.status(403).send("DELETE query: " + err);
+		} else {
+			// Then delete player
+			db.run("DELETE FROM jsf_players WHERE player_UID = \'" + req.params.playerUID + "\';", function(err) {
+				if (err) {
+					console.log("DELETE query: " + err);
+					res.status(403).send("DELETE query: " + err);
+				} else {
+					res.status(201).send("Success");
+				}
+			});
+		}
+	});
 });
 
 app.get('/api/v0/player/search/:pattern', function(req, res) {

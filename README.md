@@ -53,6 +53,20 @@ Returns a single fighter's information. **:fighter** is the fighter's ID number.
 ##### /api/v0/fighter/add
 
 Adds a fighter to the database.
-Must contain *form* data and the body must contain:
-**player_name**: The name of the player this fighter will belong to
-**fightername**: The complete name of the fighter
+Must contain *x-www-form-urlencoded* data and the body must contain:
+**player_name**: The name of the player being created
+
+##### /api/v0/fighter/remove/:fighter
+
+Removes a fighter from the database by fighter_UID
+
+##### /api/v0/player/add
+
+Adds a fighter to the database.
+Must contain *x-www-form-urlencoded* data and the body must contain:
+**playername**: The name of the player this fighter will belong to
+**playerUID**: The complete name of the fighter
+
+##### /api/v0/player/remove/:player
+
+Removes a player from the database by player_UID
