@@ -1,62 +1,58 @@
 ### GET endpoints
 
-##### /api/v0/list/all
+##### /api/v0/fighter/list
 
-Lists all students
+Lists all fighters
 
 ```json
 [
     {
-        "student_UID": 1,
-        "student_name": "Bob",
-        "student_ID": "9999",
-        "student_class_UID": 1,
-        "spart_pro": 10,
-        "spart_emp": 10,
-        "spart_opt": 10,
-        "spart_inn": 10,
-        "spart_per": 10,
-        "spart_int": 10
+        "fighter_UID": 1,
+        "fighter_name": "Bob",
+        "fighter_player_UID": 1,
+        "stat_atk": 5,
+        "stat_def": 5,
+        "stat_tej": 5,
+        "rec_wins": 0,
+        "rec_losses": 0
     }
 ]
 ```
 
-##### /api/v0/search/:pattern
+##### /api/v0/fighter/search/:pattern
 
-Searches students and returns all students who have **:pattern** in their name. See */api/v0/list/all* formatting.
+Searches fighters and returns all fighters who have **:pattern** in their name. See */api/v0/fighter/list* formatting.
 
-##### /api/v0/list/classes
+##### /api/v0/player/list
 
-Lists all classes.
+Lists all players.
 
 ```JSON
 [
     {
-        "class_UID": 1,
-        "class_code": "ECE300-01-1920",
-        "class_name": "Programming 5"
+        "player_UID": 1,
+        "player_name": "Mr. Smith"
     },
     {
-        "class_UID": 2,
-        "class_code": "ECE700-01-1920",
-        "class_name": "Programming 17"
+        "player_UID": 2,
+        "player_name": "Big Bubba"
     }
 ]
 ```
 
-##### /api/v0/class/:class
+##### /api/v0/player/show/:player
 
-Lists all students in class by *class_code* in **:class**. See */api/v0/list/all* formatting.
+Lists all fighters in player by *playerUID* in **:player**. See */api/v0/player/list* formatting.
 
-##### /api/v0/student/:student
+##### /api/v0/fighter/show/:fighter
 
-Returns a single student's information. **:student** is the student's ID number. See */api/v0/list/all* formatting (returns only one student).
+Returns a single fighter's information. **:fighter** is the fighter's ID number. See */api/v0/fighter/list* formatting (returns only one fighter).
 
 ### POST endpoints
 
-##### /api/v0/student/
+##### /api/v0/fighter/add
 
-Adds a student to the database.
+Adds a fighter to the database.
 Must contain *form* data and the body must contain:
-**studentID**: The student's ID number
-**studentname**: The complete name of the student
+**player_name**: The name of the player this fighter will belong to
+**fightername**: The complete name of the fighter
