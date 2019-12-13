@@ -52,7 +52,7 @@ app.post('/auth', function(request, response) {
 	let username = request.body.username;
 	let password = request.body.password;
 	if (username && password) {
-		db.get('SELECT * FROM jsf_accounts WHERE username = \'' + username + '\' AND password = \'' + password + '\';', function(err, results) {
+		db.get('SELECT * FROM jsf_account WHERE username = \'' + username + '\' AND password = \'' + password + '\';', function(err, results) {
 			if (err)
 				console.log(err);
 			if (results) {
