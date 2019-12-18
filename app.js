@@ -9,7 +9,7 @@ app.use(session({
 	saveUninitialized: true
 }));
 let path = require('path');
-
+releaseCandidate
 const sqlite3 = require('sqlite3'); // Interfaces with sqlite3 database
 const db = new sqlite3.Database('database/JSFdatabase.db');
 
