@@ -1,4 +1,5 @@
 const express = require('express'); // Express framework
+const request = require('request'); // Express framework
 const app = express();
 
 let session = require('express-session');
@@ -26,6 +27,10 @@ app.use(express.static("public"));
 app.listen(3001, function() {
 	console.log('Listening on port ' + 3001 + '.');
 });
+
+require('dns').lookup(require('os').hostname(), function (err, add, fam) {
+  console.log('addr: '+add);
+})
 
 /*
 ██       ██████   ██████  ██ ███    ██
@@ -249,4 +254,25 @@ app.get('/api/v0/player/search/:pattern', function(req, res) {
 			}
 		}
 	});
+});
+
+
+
+
+
+
+
+var options = {
+  url: 'https://api.github.com/repos/andre2021537/JSFDB',
+  headers: {
+    'User-Agent': 'request'
+  }
+};
+
+//github test
+app.get('/api/v0/github', function(req, res) {
+	request(options, function(request_err, request_res, request_body) {
+					res.status(200).send(request_body);
+			}
+	)
 });
