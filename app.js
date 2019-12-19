@@ -152,7 +152,20 @@ app.put('/api/v0/fighter/edit/:fighterID', function(req, res) {
 });
 
 app.delete('/api/v0/fighter/remove/:fighterID', function(req, res) {
-
+	db.all("DELETE FROM jsf_fighters WHERE fighter_UID LIKE \'\%" + req.params.fighterID + "\%\';", function(err, results) {
+		console.log(results);
+		if (err) {
+			console.log(err);
+			res.send(err);
+		} else {
+			res.set('Content-Type', 'application/json');
+			if (results != undefined) {
+				res.send(JSON.stringify(results));
+			} else {
+				res.send('undefined');
+			}
+		}
+	});
 });
 
 app.get('/api/v0/fighter/search/:pattern', function(req, res) {
