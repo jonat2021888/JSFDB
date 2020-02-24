@@ -1,0 +1,152 @@
+html
+  head
+    title JSF Creator
+    link(rel='stylesheet', href='/css/home.css')
+  body
+  div(class="hr" id="hr")
+    div(class="usernameBox" id="username")= username
+    div(class="backButton" onclick="location.href='editor'" height="60" width="60" id="back" onmouseenter="backEnter();" onmouseleave="backLeave();")='≪'
+      div(class="welcome" id="welcome")= 'JSBrowser'
+        form(action="login" method="GET")
+          button(class="logoutButton" id="logout" onmouseenter="logoutEnter(); backFake();" onmouseleave="logoutLeave()")= 'Logout'
+        form(action="lightmode" method="POST")
+          input(type="hidden" name="page" value="create")
+          button(class="lightmodeButton" id="light" onmouseenter="backFake();")= 'Light Mode'
+        form(action="darkmode" method="POST")
+          input(type="hidden" name="page" value="create")
+          button(class="darkmodeButton" id="dark" onmouseenter="backFake();")= 'Dark Mode'
+      p(style="visibility:hidden" id="darkmode")=darkmode
+      script.
+        if (document.getElementById("darkmode").innerHTML == "true") {
+          console.log("Darkmode: true");
+          document.getElementById("dark").style.visibility = "hidden";
+          document.getElementById("light").style.visibility = "visible";
+          document.body.style.background = "#2C2F33";
+          document.getElementById('hr').style.backgroundColor = "#23272A";
+          document.getElementById('hr').style.borderColor = "#2c3236";
+          document.getElementById('welcome').style.color = "#99AAB5";
+          document.getElementById('username').style.color = "#99AAB5";
+          document.getElementById('back').style.color = "#99AAB5";
+        }
+        if (document.getElementById("darkmode").innerHTML == "false") {
+          console.log("Darkmode: false");
+          document.getElementById("dark").style.visibility = "visible";
+          document.getElementById("light").style.visibility = "hidden";
+        }
+        function backEnter() {
+            document.getElementById("back").style.color = "#7289DA";
+            document.getElementById("welcome").style.color = "#7289DA";
+        }
+        function backLeave() {
+          if (document.getElementById("darkmode").innerHTML == "true") {
+            document.getElementById("back").style.color = "#99AAB5";
+            document.getElementById("welcome").style.color = "#99AAB5";
+          } else {
+            document.getElementById("back").style.color = "#004869";
+            document.getElementById("welcome").style.color = "#004869";
+          }
+        }
+        function backFake() {
+          if (document.getElementById("darkmode").innerHTML == "true") {
+            document.getElementById('back').style.color = "#99AAB5";
+            document.getElementById('welcome').style.color = "#99AAB5";
+          } else {
+            document.getElementById("back").style.color = "#004869";
+            document.getElementById("welcome").style.color = "#004869";
+          }
+        }
+        function logoutEnter() {
+          if (document.getElementById("darkmode").innerHTML == "true") {
+            document.getElementById("logout").style.color = "#23272A";
+          } else {
+            document.getElementById("logout").style.color = "#f2f2f2";
+          }
+        }
+        function logoutLeave() {
+          document.getElementById("logout").style.color = "#f54242";
+        }   
+  div(class="createFighter")
+    form(action="/createFighter" method="POST" autocomplete="off")
+      Input(class="input0" placeholder="Name" name="name" id="name")
+      div(class="highlight")
+        div(class="input1R" id="atkR2")= 'Attack:'
+        div(class="input1" id="atkR")= '30'
+        Input(type="range" min="5" max="60" value="30" class="slider" id="atkS" name="atk")
+      div(class="highlight")
+        div(class="input1R" id="defR2")= 'Defense:'
+        div(class="input1" id="defR")= '30'
+        Input(type="range" min="5" max="60" value="30" class="slider" id="defS" name="def")
+      div(class="highlight")
+        div(class="input1R" id="tekR2")= 'Technique:'
+        div(class="input1" id="tekR")= '30'
+        Input(type="range" min="5" max="60" value="30" class="slider" id="tekS" name="tek")
+      Input(class="input3" type="submit" value="Create" id="create" onclick="submitCheck()")
+      div(class="input2" id="total")= 'Total: 90'
+      div(class="input5" id="check")= ''
+
+
+
+
+      script.
+        var total = 90;
+        var atkS = document.getElementById("atkS");
+        var defS = document.getElementById("defS");
+        var tekS = document.getElementById("tekS");
+        document.getElementById("atkR");
+        document.getElementById("defR");
+        document.getElementById("tekR");
+
+
+        atkS.oninput = function() {
+        document.getElementById("atkR").innerHTML = atkS.value;
+        total = parseFloat(atkS.value) + parseFloat(defS.value) + parseFloat(tekS.value);
+        document.getElementById("total").innerHTML = 'Total: ' + total;
+        if (total == 90) {
+          document.getElementById("total").style.color = "lime";
+          document.getElementById("create").style.color = "lime";
+        } else {
+          document.getElementById("total").style.color = "red";
+          document.getElementById("create").style.color = "red";
+        }
+        }
+
+        defS.oninput = function() {
+        document.getElementById("defR").innerHTML = defS.value;
+        total = parseFloat(atkS.value) + parseFloat(defS.value) + parseFloat(tekS.value);
+        document.getElementById("total").innerHTML = 'Total: ' + total;
+        if (total == 90) {
+          document.getElementById("total").style.color = "lime";
+          document.getElementById("create").style.color = "lime";
+        } else {
+          document.getElementById("total").style.color = "red";
+          document.getElementById("create").style.color = "red";
+        }
+        }
+
+        tekS.oninput = function() {
+        document.getElementById("tekR").innerHTML = tekS.value;
+        total = parseFloat(atkS.value) + parseFloat(defS.value) + parseFloat(tekS.value);
+        document.getElementById("total").innerHTML = 'Total: ' + total;
+        if (total == 90) {
+          document.getElementById("total").style.color = "lime";
+          document.getElementById("create").style.color = "lime";
+        } else {
+          document.getElementById("total").style.color = "red";
+          document.getElementById("create").style.color = "red";
+        }
+        }
+
+        function submitCheck() {
+          if (total != 90) {
+          document.getElementById("check").innerHTML = "Total doesn't add up to 90";
+          }
+          if (!document.getElementById("name").value) {
+          document.getElementById("check").innerHTML = "No name selected";
+          }
+        }
+  script.
+    if (document.getElementById("darkmode").innerHTML == "true") {
+      document.getElementById('name').style.borderColor = "#2c3236";
+      document.getElementById('name').style.backgroundColor = "#23272A";
+      document.getElementById('name').style.color = "#99AAB5";
+    }

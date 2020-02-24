@@ -1,0 +1,192 @@
+html
+  head
+    title JSF Leaderboards
+    link(rel='stylesheet', href='/css/home.css')
+  body(onload="startTab();")
+  div(class="hr" id="hr")
+    div(class="usernameBox" id="username")= username
+    div(class="backButton" onclick="location.href='jsfighterGame'" height="60" width="60" id="back" onmouseenter="backEnter();" onmouseleave="backLeave();")='≪'
+      div(class="welcome" id="welcome")= 'JSBrowser'
+        form(action="login" method="GET")
+          button(class="logoutButton" id="logout" onmouseenter="logoutEnter(); backFake();" onmouseleave="logoutLeave();")= 'Logout'
+        form(action="lightmode" method="POST")
+          input(type="hidden" name="page" value="leaderboards")
+          button(class="lightmodeButton" id="light" onmouseenter="backFake();")= 'Light Mode'
+        form(action="darkmode" method="POST")
+          input(type="hidden" name="page" value="leaderboards")
+          button(class="darkmodeButton" id="dark" onmouseenter="backFake();")= 'Dark Mode'
+      p(style="visibility:hidden" id="darkmode")=darkmode
+      script.
+        if (document.getElementById("darkmode").innerHTML == "true") {
+          console.log("Darkmode: true");
+          document.getElementById("dark").style.visibility = "hidden";
+          document.getElementById("light").style.visibility = "visible";
+          document.body.style.background = "#2C2F33";
+          document.getElementById('hr').style.backgroundColor = "#23272A";
+          document.getElementById('hr').style.borderColor = "#2c3236";
+          document.getElementById('welcome').style.color = "#99AAB5";
+          document.getElementById('username').style.color = "#99AAB5";
+          document.getElementById('back').style.color = "#99AAB5";
+        }
+        if (document.getElementById("darkmode").innerHTML == "false") {
+          console.log("Darkmode: false");
+          document.getElementById("dark").style.visibility = "visible";
+          document.getElementById("light").style.visibility = "hidden";
+        }
+        function backEnter() {
+            document.getElementById("back").style.color = "#7289DA";
+            document.getElementById("welcome").style.color = "#7289DA";
+        }
+        function backLeave() {
+          if (document.getElementById("darkmode").innerHTML == "true") {
+            document.getElementById("back").style.color = "#99AAB5";
+            document.getElementById("welcome").style.color = "#99AAB5";
+          } else {
+            document.getElementById("back").style.color = "#004869";
+            document.getElementById("welcome").style.color = "#004869";
+          }
+        }
+        function backFake() {
+          if (document.getElementById("darkmode").innerHTML == "true") {
+            document.getElementById('back').style.color = "#99AAB5";
+            document.getElementById('welcome').style.color = "#99AAB5";
+          } else {
+            document.getElementById("back").style.color = "#004869";
+            document.getElementById("welcome").style.color = "#004869";
+          }
+        }
+        function logoutEnter() {
+          if (document.getElementById("darkmode").innerHTML == "true") {
+            document.getElementById("logout").style.color = "#23272A";
+          } else {
+            document.getElementById("logout").style.color = "#f2f2f2";
+          }
+        }
+        function logoutLeave() {
+          document.getElementById("logout").style.color = "#f54242";
+        }
+        function startTab() {
+          if (document.getElementById("darkmode").innerHTML == "true") {
+            document.getElementById("tab1").style.borderBottomColor = "#23272A";
+          } else {
+            document.getElementById("tab1").style.borderBottomColor = "#ebebeb";
+          }
+          document.getElementById("tabDisplay").innerHTML = document.getElementById("tab1").innerHTML;
+        }
+        function tab(x) {
+          let borderColor;
+          let clearColor;
+        if (document.getElementById("darkmode").innerHTML == "true") {
+          borderColor = "#2c3236";
+          clearColor = "#23272A";
+        } else {
+          borderColor = "#004869";
+          clearColor = "#ebebeb";
+        }
+          document.getElementById("tab" + x).style.borderBottomColor = clearColor;
+          document.getElementById("tabDisplay").innerHTML = document.getElementById("tab" + x).innerHTML;
+        if (x == 1) {
+          document.getElementById("tab2").style.borderBottomColor = borderColor;
+          document.getElementById("tab3").style.borderBottomColor = borderColor;
+          document.getElementById("tab4").style.borderBottomColor = borderColor;
+          document.getElementById("tab5").style.borderBottomColor = borderColor;
+        } else if (x == 2) {
+          document.getElementById("tab1").style.borderBottomColor = borderColor;
+          document.getElementById("tab3").style.borderBottomColor = borderColor;
+          document.getElementById("tab4").style.borderBottomColor = borderColor;
+          document.getElementById("tab5").style.borderBottomColor = borderColor;
+        } else if (x == 3) {
+          document.getElementById("tab1").style.borderBottomColor = borderColor;
+          document.getElementById("tab2").style.borderBottomColor = borderColor;
+          document.getElementById("tab4").style.borderBottomColor = borderColor;
+          document.getElementById("tab5").style.borderBottomColor = borderColor;
+        } else if (x == 4) {
+          document.getElementById("tab1").style.borderBottomColor = borderColor;
+          document.getElementById("tab2").style.borderBottomColor = borderColor;
+          document.getElementById("tab3").style.borderBottomColor = borderColor;
+          document.getElementById("tab5").style.borderBottomColor = borderColor;
+        } else if (x == 5) {
+          document.getElementById("tab1").style.borderBottomColor = borderColor;
+          document.getElementById("tab2").style.borderBottomColor = borderColor;
+          document.getElementById("tab3").style.borderBottomColor = borderColor;
+          document.getElementById("tab4").style.borderBottomColor = borderColor;
+        }
+        }
+        
+        
+        
+        
+        
+
+  div(class="bar1" id="bar1")
+    div(class="tab1" id="tab1" onclick="tab(1)")='Wins'
+    div(class="tab2" id="tab2" onclick="tab(2)")='Losses'
+    div(class="tab2" id="tab3" onclick="tab(3)")='Logs'
+    div(class="tab2" id="tab4" onclick="tab(4)")='Cakes'
+    div(class="tab2" id="tab5" onclick="tab(5)")='Work Done'
+    div(class="tab3" id="tabDisplay")=''
+  div(class="leaderboardTop")
+  each account in accounts
+    div(class="leaderboard" id="bar2")
+      div(class="bar2" id="rank")=''
+      div(class="bar2Display1" id="D")=account.username
+      div(class="bar2Display2" id="DD")=account.account_wins
+          //- p(id="wins")=account.account_wins
+  script.
+      
+      
+      let counter = "rank0";
+      let counterD1 = "D0";
+      let counterD2 = "DD0";
+      function rankList(x) {
+        document.getElementById("rank").id = counter;
+        document.getElementById("D").id = counterD1;
+        document.getElementById("DD").id = counterD2;
+        document.getElementById(counter).innerHTML = x;
+        counter = "rank" + x;
+        counterD1 = "D" + x;
+        counterD2 = "DD" + x;
+
+      }    
+      for (i = 1; i < 100; i++) {
+        rankList(i);
+      }  
+      
+  script.
+      
+      
+      
+      if (document.getElementById("darkmode").innerHTML == "true") {
+        document.getElementById('bar1').style.backgroundColor = "#23272A";
+        document.getElementById('bar1').style.borderColor = "#2c3236";
+        document.getElementById('tab1').style.borderColor = "#2c3236";
+        document.getElementById('tab2').style.borderColor = "#2c3236";
+        document.getElementById('tab3').style.borderColor = "#2c3236";
+        document.getElementById('tab4').style.borderColor = "#2c3236";
+        document.getElementById('tab5').style.borderColor = "#2c3236";
+        document.getElementById('tabDisplay').style.color = "#99AAB5";
+        document.getElementById('tab1').style.color = "#99AAB5";
+        document.getElementById('tab2').style.color = "#99AAB5";
+        document.getElementById('tab3').style.color = "#99AAB5";
+        document.getElementById('tab4').style.color = "#99AAB5";
+        document.getElementById('tab5').style.color = "#99AAB5";
+        let barCounter = "rank0";
+        let barCounterD1 = "D0";
+        let barCounterD2 = "DD0";
+        function rankDarkmode(x) {
+          document.getElementById(barCounter).style.backgroundColor = "#23272A";
+          document.getElementById(barCounter).style.borderColor = "#2c3236";
+          document.getElementById(barCounter).style.color = "#99AAB5";
+          document.getElementById(barCounterD1).style.color = "#99AAB5";
+          document.getElementById(barCounterD2).style.color = "#99AAB5";
+          barCounter = "rank" + x;
+          barCounterD1 = "D" + x;
+          barCounterD2 = "DD" + x;
+        }    
+        for (i = 1; i < 100; i++) {
+          rankDarkmode(i);
+        }  
+      }
+      
+
+        
