@@ -1,0 +1,63 @@
+html
+  head
+    title Home - JSBrowser
+    link(rel='stylesheet', href='/css/home.css')
+  body(class="body")
+    form(action="play" method="GET" class="THREEcard1" id="card1")
+      input(type="image" src="playIcon.png" class="Pimg" height="120" width="120")
+      button(class="Sbutton") Play
+    form(action="settings" method="GET" class="THREEcard2" id="card2")
+      input(type="image" src="settingsIcon.png" class="Simg" height="120" width="120")
+      button(class="Sbutton") Settings
+    form(action="details" method="GET" class="THREEcard3" id="card3")
+      input(type="image" src="unknownIcon.png" class="Eimg" height="120" width="120")
+      button(class="Sbutton") Details
+  div(class="hr" id="hr")
+    div(class="usernameBox" id="username")= username
+    div(class="welcomeH" id="welcome")= 'JSBrowser'
+      form(action="login" method="GET")
+        button(class="logoutButton" id="logout" onmouseenter="logoutEnter()" onmouseleave="logoutLeave()")= 'Logout'
+      form(action="lightmode" method="POST")
+        input(type="hidden" name="page" value="index")
+        button(class="lightmodeButton" id="light")= 'Light Mode'
+      form(action="darkmode" method="POST")
+        input(type="hidden" name="page" value="index")
+        button(class="darkmodeButton" id="dark")= 'Dark Mode'
+      p(style="visibility:hidden" id="darkmode")=darkmode
+      script.
+        if (document.getElementById("darkmode").innerHTML == "true") {
+          console.log("Darkmode: true");
+          document.getElementById("dark").style.visibility = "hidden";
+          document.getElementById("light").style.visibility = "visible";
+          
+          document.getElementById('card1').className = "THREE" + document.getElementById('card1').id + "D"
+          document.getElementById('card2').className = "THREE" + document.getElementById('card2').id + "D"
+          document.getElementById('card3').className = "THREE" + document.getElementById('card3').id + "D"
+          
+          document.body.style.background = "#2C2F33";
+          document.getElementById('card1').style.backgroundColor = "#23272A";
+          document.getElementById('card1').style.borderColor = "#2c3236";
+          document.getElementById('card2').style.backgroundColor = "#23272A";
+          document.getElementById('card2').style.borderColor = "#2c3236";
+          document.getElementById('card3').style.backgroundColor = "#23272A";
+          document.getElementById('card3').style.borderColor = "#2c3236";
+          document.getElementById('hr').style.backgroundColor = "#23272A";
+          document.getElementById('hr').style.borderColor = "#2c3236";
+          document.getElementById('welcome').style.color = "#99AAB5";
+          document.getElementById('username').style.color = "#99AAB5";
+        }
+        if (document.getElementById("darkmode").innerHTML == "false") {
+          console.log("Darkmode: false");
+          document.getElementById("dark").style.visibility = "visible";
+          document.getElementById("light").style.visibility = "hidden";
+        }
+        function logoutEnter() {
+          if (document.getElementById("darkmode").innerHTML == "true") {
+            document.getElementById("logout").style.color = "#23272A";
+          } else {
+            document.getElementById("logout").style.color = "#f2f2f2";
+          }
+        }
+        function logoutLeave() {
+          document.getElementById("logout").style.color = "#f54242";
+        }

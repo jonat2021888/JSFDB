@@ -19,3 +19,16 @@
     border: 0;
     box-sizing: border-box;
 }
+
+
+.NAbutton {
+  font-size: 100%;
+  text-decoration: underline;
+  border: solid 0px black;
+  background-color: transparent;
+  color: #4d4d4d;
+}
+
+::selection {
+  color: #7289DA;
+}

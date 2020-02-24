@@ -1,0 +1,70 @@
+html
+  head
+    title JSBrowser Login
+    link(rel='stylesheet' href='/css/style.css')
+    link(rel='stylesheet' href='/css/layout.css')
+    link(rel='stylesheet' href='/css/home.css')
+  body
+  div(class="hr" id="hr")
+    div(class="usernameBox" id="username")= 'Guest'
+    div(class="welcomeH" id="welcome")= 'JSBrowser'
+      button(class="lightmodeButtonH" id="light" onclick="lightMode();")= 'Light Mode'
+      button(class="darkmodeButtonH" id="dark" onclick="darkMode();")= 'Dark Mode'
+      script.
+        let darkCheck = 0;
+        document.getElementById("light").style.visibility = "hidden";
+        function darkMode() {
+          darkCheck = 1;
+          console.log("Darkmode: true");
+          document.getElementById("dark").style.visibility = "hidden";
+          document.getElementById("light").style.visibility = "visible";
+          
+          document.body.style.background = "#2C2F33";
+
+          document.getElementById('hr').style.backgroundColor = "#23272A";
+          document.getElementById('hr').style.borderColor = "#2c3236";
+          document.getElementById('welcome').style.color = "#99AAB5";
+          document.getElementById('username').style.color = "#99AAB5";
+        }
+        function lightMode() {
+          darkCheck = 0;
+          console.log("Darkmode: false");
+          document.getElementById("dark").style.visibility = "visible";
+          document.getElementById("light").style.visibility = "hidden";
+          
+          document.body.style.background = "#f2f2f2";
+
+          document.getElementById('hr').style.backgroundColor = "#f2f2f2";
+          document.getElementById('hr').style.borderColor = "#004869";
+          document.getElementById('welcome').style.color = "#004869";
+          document.getElementById('username').style.color = "#004869";
+        }
+  
+  
+  
+  
+  
+  
+  .login-form
+    h1(style="margin-top: 20%;") Account Form
+    form(action='createAccount' method='POST')
+      input(type='text' name='username1' id="username1" placeholder='Username' required='')
+      input(type='text' name='username2' id="username2" placeholder='Confirm Username' required='')
+      input(type='password' name='password1' id="password1" placeholder='Password' required='')
+      input(type='password' name='password2' id="password2" placeholder='Confirm Password' required='')
+      input(type='password' name='password3' id="password3" placeholder='Confirm Confirmed Password' required='')
+      input(type='submit' onclick="check();")
+      div(id="submitCheck" style="margin-top: 15px;")=''
+  script.
+    
+    
+    
+      function check() {
+      if (document.getElementById("username1").value != document.getElementById("username2").value) {
+        document.getElementById("submitCheck").innerHTML = "Usernames Don't Match!"
+      } else if (document.getElementById("password1").value != document.getElementById("password2").value) {
+        document.getElementById("submitCheck").innerHTML = "Passwords Don't Match!"
+      } else if (document.getElementById("password2").value != document.getElementById("password3").value) {
+        document.getElementById("submitCheck").innerHTML = "Passwords Don't Match!"
+      }
+      }

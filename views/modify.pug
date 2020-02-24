@@ -1,0 +1,270 @@
+html
+  head
+    title JSF Modifier
+    link(rel='stylesheet', href='/css/home.css')
+  body
+  div(class="hr" id="hr")
+    div(class="usernameBox" id="username")= username
+    div(class="backButton" onclick="location.href='editor'" height="60" width="60" id="back" onmouseenter="backEnter();" onmouseleave="backLeave();")='≪'
+      div(class="welcome" id="welcome")= 'JSBrowser'
+        form(action="login" method="GET")
+          button(class="logoutButton" id="logout" onmouseenter="logoutEnter(); backFake();" onmouseleave="logoutLeave()")= 'Logout'
+        form(action="lightmode" method="POST")
+          input(type="hidden" name="page" value="modify")
+          button(class="lightmodeButton" id="light" onmouseenter="backFake();")= 'Light Mode'
+        form(action="darkmode" method="POST")
+          input(type="hidden" name="page" value="modify")
+          button(class="darkmodeButton" id="dark" onmouseenter="backFake();")= 'Dark Mode'
+      p(style="visibility:hidden" id="darkmode")=darkmode
+      script.
+        if (document.getElementById("darkmode").innerHTML == "true") {
+          console.log("Darkmode: true");
+          document.getElementById("dark").style.visibility = "hidden";
+          document.getElementById("light").style.visibility = "visible";
+          document.body.style.background = "#2C2F33";
+          document.getElementById('hr').style.backgroundColor = "#23272A";
+          document.getElementById('hr').style.borderColor = "#2c3236";
+          document.getElementById('welcome').style.color = "#99AAB5";
+          document.getElementById('username').style.color = "#99AAB5";
+          document.getElementById('back').style.color = "#99AAB5";
+        }
+        if (document.getElementById("darkmode").innerHTML == "false") {
+          console.log("Darkmode: false");
+          document.getElementById("dark").style.visibility = "visible";
+          document.getElementById("light").style.visibility = "hidden";
+        }
+        function backEnter() {
+            document.getElementById("back").style.color = "#7289DA";
+            document.getElementById("welcome").style.color = "#7289DA";
+        }
+        function backLeave() {
+          if (document.getElementById("darkmode").innerHTML == "true") {
+            document.getElementById("back").style.color = "#99AAB5";
+            document.getElementById("welcome").style.color = "#99AAB5";
+          } else {
+            document.getElementById("back").style.color = "#004869";
+            document.getElementById("welcome").style.color = "#004869";
+          }
+        }
+        function backFake() {
+          if (document.getElementById("darkmode").innerHTML == "true") {
+            document.getElementById('back').style.color = "#99AAB5";
+            document.getElementById('welcome').style.color = "#99AAB5";
+          } else {
+            document.getElementById("back").style.color = "#004869";
+            document.getElementById("welcome").style.color = "#004869";
+          }
+        }
+        function logoutEnter() {
+          if (document.getElementById("darkmode").innerHTML == "true") {
+            document.getElementById("logout").style.color = "#23272A";
+          } else {
+            document.getElementById("logout").style.color = "#f2f2f2";
+          }
+        }
+        function logoutLeave() {
+          document.getElementById("logout").style.color = "#f54242";
+        }
+    each fighter in fighters
+      div(class="card2" id="0")
+        input(type="hidden" name="accUID" value=fighter.fighter_player_UID)
+        div(class="input0T" id="A")= fighter.fighter_name
+        div(class="input1RT")= 'Attack:'
+        div(class="input1T")= fighter.stat_atk
+        Input(type="range" min="5" max="60" value="30" class="slider" style="visibility:hidden")
+        div(class="input1RT")= 'Defense:'
+        div(class="input1T")= fighter.stat_def
+        Input(type="range" min="5" max="60" value="30" class="slider" style="visibility:hidden")
+        div(class="input1RT")= 'Technique:'
+        div(class="input1T")= fighter.stat_tek
+        Input(type="range" min="5" max="60" value="30" class="slider" style="visibility:hidden")
+        div(class="nextButton" onclick="swapF()")='≫'
+        div(class="prevButton" onclick="swapB()")='≪'
+        p(id="name" style="visibility:hidden")=fighter.fighter_name
+        p(id="atk" style="visibility:hidden")=fighter.stat_atk
+        p(id="def" style="visibility:hidden")=fighter.stat_def
+        p(id="tek" style="visibility:hidden")=fighter.stat_tek
+        p(id="selection" style="visibility:hidden")='0'
+  div(class="modifyFighter")
+    form(action="/modifyFighter" method="POST" class="right" autocomplete="off")
+      Input(class="input0" placeholder="Name" name="name" id="nameS" value="None Selected" readonly)
+      div(class="highlight")
+        div(class="input1R" id="atkR2")= 'Attack:'
+        div(class="input1" id="atkR")= '30'
+        Input(type="range" min="5" max="60" value="30" class="slider" id="atkS" name="atk")
+      div(class="highlight")
+        div(class="input1R" id="defR2")= 'Defense:'
+        div(class="input1" id="defR")= '30'
+        Input(type="range" min="5" max="60" value="30" class="slider" id="defS" name="def")
+      div(class="highlight")
+        div(class="input1R" id="tekR2")= 'Technique:'
+        div(class="input1" id="tekR")= '30'
+        Input(type="range" min="5" max="60" value="30" class="slider" id="tekS" name="tek")
+      Input(class="input3" type="submit" value="Apply" id="create" onclick="submitCheck()")
+      div(class="input2" id="total")= 'Total: 90'
+      div(class="input5" id="check")= ''
+      script.
+        
+        var total = 90;
+        var atkS = document.getElementById("atkS");
+        var defS = document.getElementById("defS");
+        var tekS = document.getElementById("tekS");
+        document.getElementById("atkR");
+        document.getElementById("defR");
+        document.getElementById("tekR");
+      
+      
+        atkS.oninput = function() {
+        document.getElementById("atkR").innerHTML = atkS.value;
+        total = parseFloat(atkS.value) + parseFloat(defS.value) + parseFloat(tekS.value);
+        document.getElementById("total").innerHTML = 'Total: ' + total;
+        if (total == 90) {
+          document.getElementById("total").style.color = "lime";
+          document.getElementById("create").style.color = "lime";
+        } else {
+          document.getElementById("total").style.color = "red";
+          document.getElementById("create").style.color = "red";
+        }
+        }
+      
+        defS.oninput = function() {
+        document.getElementById("defR").innerHTML = defS.value;
+        total = parseFloat(atkS.value) + parseFloat(defS.value) + parseFloat(tekS.value);
+        document.getElementById("total").innerHTML = 'Total: ' + total;
+        if (total == 90) {
+          document.getElementById("total").style.color = "lime";
+          document.getElementById("create").style.color = "lime";
+        } else {
+          document.getElementById("total").style.color = "red";
+          document.getElementById("create").style.color = "red";
+        }
+        }
+      
+        tekS.oninput = function() {
+        document.getElementById("tekR").innerHTML = tekS.value;
+        total = parseFloat(atkS.value) + parseFloat(defS.value) + parseFloat(tekS.value);
+        document.getElementById("total").innerHTML = 'Total: ' + total;
+        if (total == 90) {
+          document.getElementById("total").style.color = "lime";
+          document.getElementById("create").style.color = "lime";
+        } else {
+          document.getElementById("total").style.color = "red";
+          document.getElementById("create").style.color = "red";
+        }
+        }
+      
+        function submitCheck() {
+          if (total != 90) {
+          document.getElementById("check").innerHTML = "Total doesn't add up to 90";
+          }
+          if (!document.getElementById("name").value) {
+          document.getElementById("check").innerHTML = "No name selected";
+          }
+        }
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        let selection = 0;
+        let counter = 0;
+        let counterA = "A0";
+        let nameCounter = "name0";
+        let atkCounter = "atk0";
+        let defCounter = "def0";
+        let tekCounter = "tek0";
+        let cardNumber = 0;
+        
+        function switcher() {
+          
+        document.getElementsByClassName("card2")[counter].id = counter;
+        document.getElementById("name").id = nameCounter;
+        document.getElementById("atk").id = atkCounter;
+        document.getElementById("def").id = defCounter;
+        document.getElementById("tek").id = tekCounter;
+        document.getElementById("A").id = counterA;
+
+        if (document.getElementById("darkmode").innerHTML == "true") {
+          document.getElementById(counter).style.color = "#99AAB5";
+          document.getElementById(counter).style.backgroundColor = "#23272A";
+          document.getElementById(counter).style.borderColor = "#2c3236";
+          document.getElementById("A" + counter).style.color = "#99AAB5";
+          document.getElementById("A" + counter).style.backgroundColor = "#23272A";
+          document.getElementById("A" + counter).style.borderColor = "#2c3236";
+        }
+        
+        counter = counter + 1;
+        nameCounter = "name" + counter;
+        atkCounter = "atk" + counter;
+        defCounter = "def" + counter;
+        tekCounter = "tek" + counter;
+        counterA = "A" + counter;
+        console.log(counter)
+        console.log(nameCounter)
+        }
+        for (i = 0; i < 100; i++) {
+        switcher();
+        document.getElementById(i).style.visibility = "hidden";
+        document.getElementById(0).style.visibility = "visible";
+
+        document.getElementById("nameS").value = document.getElementById("name" + selection).innerHTML;
+        document.getElementById("atkS").value = document.getElementById("atk" + selection).innerHTML;
+        document.getElementById("atkR").innerHTML = document.getElementById("atk" + selection).innerHTML;
+        document.getElementById("defS").value = document.getElementById("def" + selection).innerHTML;
+        document.getElementById("defR").innerHTML = document.getElementById("def" + selection).innerHTML;
+        document.getElementById("tekS").value = document.getElementById("tek" + selection).innerHTML;
+        document.getElementById("tekR").innerHTML = document.getElementById("tek" + selection).innerHTML;
+        }
+        
+        
+        
+        
+        
+        function swapF() {
+        if (cardNumber < (counter - 1)) {
+        cardNumber = cardNumber + 1;
+        let oldCard = cardNumber - 1;
+        document.getElementById(oldCard).style.visibility = "hidden";
+        document.getElementById(cardNumber).style.visibility = "visible";
+        console.log(cardNumber);
+        selection = cardNumber;
+        document.getElementById("selection").innerHTML = selection;
+        
+        document.getElementById("nameS").value = document.getElementById("name" + selection).innerHTML;
+        document.getElementById("atkS").value = document.getElementById("atk" + selection).innerHTML;
+        document.getElementById("atkR").innerHTML = document.getElementById("atk" + selection).innerHTML;
+        document.getElementById("defS").value = document.getElementById("def" + selection).innerHTML;
+        document.getElementById("defR").innerHTML = document.getElementById("def" + selection).innerHTML;
+        document.getElementById("tekS").value = document.getElementById("tek" + selection).innerHTML;
+        document.getElementById("tekR").innerHTML = document.getElementById("tek" + selection).innerHTML;
+        }
+        }
+        function swapB() {
+        if (cardNumber > 0) {
+        cardNumber = cardNumber - 1;
+        let oldCard = cardNumber + 1;
+        document.getElementById(oldCard).style.visibility = "hidden";
+        document.getElementById(cardNumber).style.visibility = "visible";
+        console.log(cardNumber);
+        selection = cardNumber;
+        document.getElementById("selection").innerHTML = selection;
+        
+        document.getElementById("nameS").value = document.getElementById("name" + selection).innerHTML;
+        document.getElementById("atkS").value = document.getElementById("atk" + selection).innerHTML;
+        document.getElementById("atkR").innerHTML = document.getElementById("atk" + selection).innerHTML;
+        document.getElementById("defS").value = document.getElementById("def" + selection).innerHTML;
+        document.getElementById("defR").innerHTML = document.getElementById("def" + selection).innerHTML;
+        document.getElementById("tekS").value = document.getElementById("tek" + selection).innerHTML;
+        document.getElementById("tekR").innerHTML = document.getElementById("tek" + selection).innerHTML;
+        }
+        }
+  script.
+    if (document.getElementById("darkmode").innerHTML == "true") {
+      document.getElementById('nameS').style.borderColor = "#2c3236";
+      document.getElementById('nameS').style.backgroundColor = "#23272A";
+      document.getElementById('nameS').style.color = "#99AAB5";
+    }
