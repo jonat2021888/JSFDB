@@ -1,0 +1,123 @@
+html
+  head
+    title Game Selection
+    link(rel='stylesheet', href='/css/home.css')
+  body
+    form(action="jsfighterGame" method="GET" class="THREEcard1" id="card1")
+      input(type="image" src="createIcon.png" class="Pimg" height="120" width="120")
+      button(class="Sbutton") JSFighter
+    form(action="pongGame" method="GET" class="THREEcard2" id="card2")
+      input(type="image" src="unknownIcon.png" class="Eimg" height="120" width="120")
+      button(class="Sbutton") Pong
+    form(action="hangmanGame" method="GET" class="THREEcard3" id="card3")
+      input(type="image" src="unknownIcon.png" class="Eimg" height="120" width="120")
+      button(class="Sbutton") Hangman
+    form(action="tictactoeGame" method="GET" class="THREEcard4" id="card4")
+      input(type="image" src="unknownIcon.png" class="Pimg" height="120" width="120")
+      button(class="Sbutton") Tic Tac Toe
+    form(action="dicerollGame" method="GET" class="THREEcard5" id="card5")
+      input(type="image" src="unknownIcon.png" class="Eimg" height="120" width="120")
+      button(class="Sbutton") Dice Roll
+    form(action="rockpaperscissorsGame" method="GET" class="THREEcard6" id="card6")
+      input(type="image" src="unknownIcon.png" class="Eimg" height="120" width="120")
+      button(class="Sbutton") Rock Paper Scissors
+    form(action="magic8ballGame" method="GET" class="THREEcard7" id="card7")
+      input(type="image" src="unknownIcon.png" class="Pimg" height="120" width="120")
+      button(class="Sbutton") Magic 8Ball
+    form(action="riddlerGame" method="GET" class="THREEcard8" id="card8")
+      input(type="image" src="unknownIcon.png" class="Eimg" height="120" width="120")
+      button(class="Sbutton") Riddler
+    form(action="codechallengerGame" method="GET" class="THREEcard9" id="card9")
+      input(type="image" src="unknownIcon.png" class="Eimg" height="120" width="120")
+      button(class="Sbutton") Code Challenger
+    div(class="hr" id="hr")
+      div(class="usernameBox" id="username")= username
+      div(class="backButton" onclick="location.href='home'" height="60" width="60" id="back" onmouseenter="backEnter();" onmouseleave="backLeave();")='≪'
+        div(class="welcome" id="welcome")= 'JSBrowser'
+          form(action="login" method="GET")
+            button(class="logoutButton" id="logout" onmouseenter="logoutEnter(); backFake();" onmouseleave="logoutLeave()")= 'Logout'
+          form(action="lightmode" method="POST")
+            input(type="hidden" name="page" value="play")
+            button(class="lightmodeButton" id="light" onmouseenter="backFake();")= 'Light Mode'
+          form(action="darkmode" method="POST")
+            input(type="hidden" name="page" value="play")
+            button(class="darkmodeButton" id="dark" onmouseenter="backFake();")= 'Dark Mode'
+        p(style="visibility:hidden" id="darkmode")=darkmode
+        script.
+          if (document.getElementById("darkmode").innerHTML == "true") {
+            console.log("Darkmode: true");
+            document.getElementById("dark").style.visibility = "hidden";
+            document.getElementById("light").style.visibility = "visible";
+            
+            document.getElementById('card1').className = "THREE" + document.getElementById('card1').id + "D"
+            document.getElementById('card2').className = "THREE" + document.getElementById('card2').id + "D"
+            document.getElementById('card3').className = "THREE" + document.getElementById('card3').id + "D"
+            document.getElementById('card4').className = "THREE" + document.getElementById('card4').id + "D"
+            document.getElementById('card5').className = "THREE" + document.getElementById('card5').id + "D"
+            document.getElementById('card6').className = "THREE" + document.getElementById('card6').id + "D"
+            document.getElementById('card7').className = "THREE" + document.getElementById('card7').id + "D"
+            document.getElementById('card8').className = "THREE" + document.getElementById('card8').id + "D"
+            document.getElementById('card9').className = "THREE" + document.getElementById('card9').id + "D"
+            
+            document.body.style.background = "#2C2F33";
+            document.getElementById('card1').style.backgroundColor = "#23272A";
+            document.getElementById('card1').style.borderColor = "#2c3236";
+            document.getElementById('card2').style.backgroundColor = "#23272A";
+            document.getElementById('card2').style.borderColor = "#2c3236";
+            document.getElementById('card3').style.backgroundColor = "#23272A";
+            document.getElementById('card3').style.borderColor = "#2c3236";
+            document.getElementById('card4').style.backgroundColor = "#23272A";
+            document.getElementById('card4').style.borderColor = "#2c3236";
+            document.getElementById('card5').style.backgroundColor = "#23272A";
+            document.getElementById('card5').style.borderColor = "#2c3236";
+            document.getElementById('card6').style.backgroundColor = "#23272A";
+            document.getElementById('card6').style.borderColor = "#2c3236";
+            document.getElementById('card7').style.backgroundColor = "#23272A";
+            document.getElementById('card7').style.borderColor = "#2c3236";
+            document.getElementById('card8').style.backgroundColor = "#23272A";
+            document.getElementById('card8').style.borderColor = "#2c3236";
+            document.getElementById('card9').style.backgroundColor = "#23272A";
+            document.getElementById('card9').style.borderColor = "#2c3236";
+            document.getElementById('hr').style.backgroundColor = "#23272A";
+            document.getElementById('hr').style.borderColor = "#2c3236";
+            document.getElementById('welcome').style.color = "#99AAB5";
+            document.getElementById('username').style.color = "#99AAB5";
+            document.getElementById('back').style.color = "#99AAB5";
+          }
+          if (document.getElementById("darkmode").innerHTML == "false") {
+            console.log("Darkmode: false");
+            document.getElementById("dark").style.visibility = "visible";
+            document.getElementById("light").style.visibility = "hidden";
+          }
+          function backEnter() {
+              document.getElementById("back").style.color = "#7289DA";
+              document.getElementById("welcome").style.color = "#7289DA";
+          }
+          function backLeave() {
+            if (document.getElementById("darkmode").innerHTML == "true") {
+              document.getElementById("back").style.color = "#99AAB5";
+              document.getElementById("welcome").style.color = "#99AAB5";
+            } else {
+              document.getElementById("back").style.color = "#004869";
+              document.getElementById("welcome").style.color = "#004869";
+            }
+          }
+          function backFake() {
+            if (document.getElementById("darkmode").innerHTML == "true") {
+              document.getElementById('back').style.color = "#99AAB5";
+              document.getElementById('welcome').style.color = "#99AAB5";
+            } else {
+              document.getElementById("back").style.color = "#004869";
+              document.getElementById("welcome").style.color = "#004869";
+            }
+          }
+          function logoutEnter() {
+            if (document.getElementById("darkmode").innerHTML == "true") {
+              document.getElementById("logout").style.color = "#23272A";
+            } else {
+              document.getElementById("logout").style.color = "#f2f2f2";
+            }
+          }
+          function logoutLeave() {
+            document.getElementById("logout").style.color = "#f54242";
+          }

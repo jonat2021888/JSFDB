@@ -1,0 +1,56 @@
+html
+  head
+    title JSBrowser Login
+    link(rel='stylesheet' href='/css/style.css')
+    link(rel='stylesheet' href='/css/layout.css')
+    link(rel='stylesheet' href='/css/home.css')
+  body
+  div(class="hr" id="hr")
+    div(class="usernameBox" id="username")= 'Guest'
+    div(class="welcomeH" id="welcome")= 'JSBrowser'
+      button(class="lightmodeButtonH" id="light" onclick="lightMode();")= 'Light Mode'
+      button(class="darkmodeButtonH" id="dark" onclick="darkMode();")= 'Dark Mode'
+      script.
+        let darkCheck = 0;
+        document.getElementById("light").style.visibility = "hidden";
+        function darkMode() {
+          darkCheck = 1;
+          console.log("Darkmode: true");
+          document.getElementById("dark").style.visibility = "hidden";
+          document.getElementById("light").style.visibility = "visible";
+          
+          document.body.style.background = "#2C2F33";
+
+          document.getElementById('hr').style.backgroundColor = "#23272A";
+          document.getElementById('hr').style.borderColor = "#2c3236";
+          document.getElementById('welcome').style.color = "#99AAB5";
+          document.getElementById('username').style.color = "#99AAB5";
+        }
+        function lightMode() {
+          darkCheck = 0;
+          console.log("Darkmode: false");
+          document.getElementById("dark").style.visibility = "visible";
+          document.getElementById("light").style.visibility = "hidden";
+          
+          document.body.style.background = "#f2f2f2";
+
+          document.getElementById('hr').style.backgroundColor = "#f2f2f2";
+          document.getElementById('hr').style.borderColor = "#004869";
+          document.getElementById('welcome').style.color = "#004869";
+          document.getElementById('username').style.color = "#004869";
+        }
+      
+      
+      
+      
+      
+      
+      
+  .login-form
+    h1(style="margin-top: 20%;") Login Form
+    form(action='auth' method='POST')
+      input(type='text' name='username' placeholder='Username' required='')
+      input(type='password' name='password' placeholder='Password' required='')
+      input(type='submit' style="cursor: pointer")
+    form.Ecard(action='accountCreation' method='GET')
+      button.NAbutton Create Account

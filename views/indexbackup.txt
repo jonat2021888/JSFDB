@@ -1,0 +1,27 @@
+html
+  head
+    title JS Browser
+    link(rel='stylesheet', href='/css/home.css')
+  body
+    div(class="usernameBox")= 'Logged in as: ' + username
+    form(action="game" method="GET" class="Pcard")
+      img(src="http://192.168.24.89:3001/playIcon.png" class="Pimg")
+      button(onclick="play()" class="Sbutton") Play
+    form(action="settings" method="GET" class="Scard")
+      img(src="http://192.168.24.89:3001/settingsIcon.png" class="Simg" height="180" width="180")
+      button(onclick="modify()" class="Sbutton") Settings
+    form(action="modify" method="GET" class="Ecard")
+      img(src="http://192.168.24.89:3001/editorIcon.png" class="Eimg" height="150" width="150")
+      button(onclick="modify()" class="Sbutton") Character Editor
+
+
+
+
+
+    script.
+      function play() {
+
+      }
+      function modify() {
+
+      }

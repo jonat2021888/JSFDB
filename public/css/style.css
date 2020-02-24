@@ -14,3 +14,16 @@
     font-weight: bold;
     color: #ffffff;
 }
+
+.NAbutton {
+  font-size: 100%;
+  text-decoration: underline;
+  border: solid 0px black;
+  background-color: transparent;
+  color: #dddddd;
+  cursor: pointer;
+}
+
+/* Removes default blue highlight */
+button:focus {outline:0;}
+Input:focus {outline:0;}
