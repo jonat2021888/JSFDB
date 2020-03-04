@@ -577,9 +577,9 @@ app.get('/api/v0/fighter/show/:fighterUID', function(req, res) {
 });
 
 app.post('/api/v0/fighter/add/', function(req, res) {
+	console.log( 'Add Fighter: \nPlayer Name: ' + req.body.player_name + '\nFighter Name: ' + req.body.fightername);
 	db.get("SELECT * FROM jsf_players WHERE player_name = \'" + req.body.player_name + "\';", function(err, results) {
 		console.log(results);
-        console.log(err);
 		if (!results) {
             console.log("No Player with that name.");
             res.status(403).send("No Player with that name.");

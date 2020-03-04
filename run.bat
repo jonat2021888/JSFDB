@@ -1,2 +1,3 @@
-npm i pug
+
+node app.js
 pause
